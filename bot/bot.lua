@@ -210,7 +210,6 @@ function create_config( )
       "9gag",
       "eur",
       "echo",
-      "btc",
       "get",
       "giphy",
       "google",
@@ -222,7 +221,9 @@ function create_config( )
       "location",
       "media",
       "plugins",
-      "channels",
+      "qr",
+      "remind",
+      "res",
       "set",
       "stats",
       "time",
@@ -276,7 +277,7 @@ end
 
 -- Call and postpone execution for cron plugins
 function cron_plugins()
-
+  print ("cr")
   for name, plugin in pairs(plugins) do
     -- Only plugins with cron function
     if plugin.cron ~= nil then
@@ -285,7 +286,7 @@ function cron_plugins()
   end
 
   -- Called again in 5 mins
-  postpone (cron_plugins, false, 5*60.0)
+  postpone (cron_plugins, false, 1*60.0)
 end
 
 -- Start and load values

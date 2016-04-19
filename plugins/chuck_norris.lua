@@ -16,6 +16,7 @@ do
     local decode = json:decode(random)
     local joke = decode.value.joke
     local unescape = unescape(joke)
+    unescape= unescape.gsub( unescape, 'Chuck Norris', 'Rajnikant' )
     return unescape
   end
 
