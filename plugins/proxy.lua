@@ -1,4 +1,4 @@
-local aibot="talk2cleverbot"
+--local aibot="talk2cleverbot"
 local pendingUsers={}
 
 local function callbackres(extra, success, result)
@@ -24,11 +24,11 @@ local function pre_process(msg)
   end
   
   if (msg.to.type == 'user' and string.match(msg.from.username,nocase("bot$")) == nil and msg.from.username ~= 'flaminSnow' and string.match(msg.text,"^[!/#]") == nil) then
-    resolve_username(aibot,  callbackres,{msg, msg.text})
+    resolve_username(_config.proxyUsername,  callbackres,{msg, msg.text})
     
   end
     
-  if (msg.from.username == aibot and next(pendingUsers) ~= nil) then
+  if (msg.from.username == _config.proxyUsername and next(pendingUsers) ~= nil) then
     send_msg(pendingUsers[#pendingUsers], msg.text , ok_cb, false)
     table.remove(pendingUsers,#pendingUsers)
   end
@@ -37,17 +37,26 @@ local function pre_process(msg)
 end
 
 local function run(msg, matches)
-   print("p ran")
-   resolve_username(aibot,  callbackres,{msg, matches[1]})
-   local text = save_value(msg, "proxy_name", "val")
-   return nil
+	print(matches[1])
+   if matches[1]=="set" and matches[2] ~= nil then
+   	_config.proxyUsername=matches[2]
+   	save_config()
+   	return "I will proxy to @" .. matches[2] 
+   else
+   	resolve_username(_config.proxyUsername,  callbackres,{msg, matches[1]})
+   	return nil
+   end
+   
+   
 end
 
 return {
   description = "sends and receives from another user/bot",
-  usage = "!p [whatever]",
+  usage = "!p [whatever], !p set @[username],",
   patterns = {
+     "^[/!#]p (set) @+(.+)$",
      "^[/!#]p +(.+)$"
+     
   }, 
   run = run,
   pre_process = pre_process

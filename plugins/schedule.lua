@@ -96,14 +96,14 @@ end
 return {
   description = "scheduler plugin",
   usage = {
-  	"[!/#]sch [delay: 2hms] text",
-  	"[!/#]sch [delay: 2h3m] text",
-  	"[!/#]sch [delay: 2h3m1s] text"
+  	"[!/#]sch @user [time: 2hms] text",
+  	"[!/#]sch @user [time: 2h3m] text",
+  	"[!/#]sch @user [time: 2h3m1s] text"
   },
   patterns = {
-    "^[!/#]sch (%w+) ([0-9]+[hmsdHMSD]) (.+)$",
-    "^[!/#]sch (%w+) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$",
-    "^[!/#]sch (%w+) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$"
+    "^[!/#]sch @(%w+) ([0-9]+[hmsdHMSD]) (.+)$",
+    "^[!/#]sch @(%w+) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$",
+    "^[!/#]sch @(%w+) ([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD])([0-9]+[hmsdHMSD]) (.+)$"
   }, 
   run = run,
   cron = cron
