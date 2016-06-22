@@ -1,11 +1,11 @@
 local function callbackres(extra, success, result)
 	local msg
-	 -- vardump(extra)
+	-- vardump(result)
 	
 	if result ~= false then
 		msg=result.peer_type .. "#id" .. result.peer_id .. "\n\n".. result.print_name
 	else
-		msg="[HTML]msg 777000 '<code>lookup failed</code>'"	
+		msg="<code>lookup failed</code>"	
 	end
 	
 	print(get_receiver(extra))
@@ -26,7 +26,7 @@ return {
   description = "Simplest plugin ever!",
   usage = "!res [username]",
   patterns = {
-     "^[/!]res +(.+)$"
+     "^[/!]res +@(.+)$"
   }, 
   run = run 
 }

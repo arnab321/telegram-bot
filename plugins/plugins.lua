@@ -156,7 +156,7 @@ local function run(msg, matches)
   end
 
   -- Reload all the plugins!
-  if matches[1] == 'reload' then
+  if matches[1] == 'reload' or matches[1] == '0' then
     return reload_plugins(true)
   end
 end
@@ -175,6 +175,7 @@ return {
     "^!plugins? (disable) ([%w_%.%-]+)$",
     "^!plugins? (enable) ([%w_%.%-]+) (chat)",
     "^!plugins? (disable) ([%w_%.%-]+) (chat)",
+    "^(0)$",
     "^!plugins? (reload)$" },
   run = run,
   privileged = true

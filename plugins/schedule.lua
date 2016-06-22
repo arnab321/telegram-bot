@@ -48,7 +48,7 @@ local function callbackres(extra, success, result)
 	elseif result ~= false then
 		msg=  result.peer_type .. "#id" .. result.peer_id 
 		save_cron(msg, extra[3],extra[2])
-		msg= msg .. " will receive: '" ..  extra[3]  .. "' on " .. os.date("%x at %H:%M:%S",extra[2] )
+		msg= msg .. " will receive: '" ..  extra[3]  .. "' on " .. os.date("%x at %H:%M:%S",extra[2] ) .." EDT"
 	
 	else
 		msg="username lookup failed"	
@@ -75,7 +75,7 @@ local function run(msg, matches)
   end
 
   local datetime = os.date ("*t")
-  local nowsecs = datetime.hour *3600 + datetime.min *60 + datetime.sec
+  local nowsecs = datetime.hour *3600 + datetime.min *60 + datetime.sec +9*3600+ 30*60
   local text = matches[#matches]
 
   if (delay<=nowsecs) then

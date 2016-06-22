@@ -48,7 +48,7 @@ end
 
 local function run(msg, matches)
   if msg.to.type == 'channel' then
-  return "PM me for help"
+  return "<code>PM me for help</code>"
   end
   
   if matches[1] == "!help" then
