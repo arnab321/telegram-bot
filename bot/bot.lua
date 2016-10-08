@@ -14,6 +14,8 @@ function on_msg_receive (msg)
     return
   end
 
+  msg = backward_msg_format(msg)
+
   local receiver = get_receiver(msg)
 
   -- vardump(msg)
@@ -22,7 +24,7 @@ function on_msg_receive (msg)
     msg = pre_process_msg(msg)
     if msg then
       match_plugins(msg)
-      mark_read(receiver, ok_cb, false)
+      -- mark_read(receiver, ok_cb, false)
     end
   end
 end
@@ -46,7 +48,7 @@ function msg_valid(msg)
   -- Don't process outgoing messages
   if msg.out then
     print('\27[36mNot valid: msg from us\27[39m')
-    return false
+    return true
   end
 
   -- Before bot was started
@@ -72,7 +74,7 @@ function msg_valid(msg)
 
   if msg.from.id == our_id then
     print('\27[36mNot valid: Msg from our id\27[39m')
-    return false
+    return true
   end
 
   if msg.to.type == 'encr_chat' then
@@ -208,7 +210,6 @@ function create_config( )
       "9gag",
       "eur",
       "echo",
-      "btc",
       "get",
       "giphy",
       "google",
@@ -220,7 +221,9 @@ function create_config( )
       "location",
       "media",
       "plugins",
-      "channels",
+      "qr",
+      "remind",
+      "res",
       "set",
       "stats",
       "time",
@@ -274,7 +277,7 @@ end
 
 -- Call and postpone execution for cron plugins
 function cron_plugins()
-
+  print ("cr")
   for name, plugin in pairs(plugins) do
     -- Only plugins with cron function
     if plugin.cron ~= nil then
@@ -282,8 +285,8 @@ function cron_plugins()
     end
   end
 
-  -- Called again in 5 mins
-  postpone (cron_plugins, false, 5*60.0)
+  -- Called again in 1 mins
+  postpone (cron_plugins, false, 1*60.0)
 end
 
 -- Start and load values

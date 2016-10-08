@@ -47,6 +47,10 @@ local function help_all()
 end
 
 local function run(msg, matches)
+  if msg.to.type == 'channel' then
+  return "<code>PM me for help</code>"
+  end
+  
   if matches[1] == "!help" then
     return telegram_help()
   elseif matches[1] == "!help all" then
